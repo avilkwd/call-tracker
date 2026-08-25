@@ -35,11 +35,14 @@
     return `${y}-${m}-${day}`;
   }
   function dayDate(monday, isoWeekday) { return addDays(monday, isoWeekday - 1); }
+  function isoWeekday(date) { const wd = date.getDay(); return wd === 0 ? 7 : wd; }
   function sameDate(a, b) { return isoKey(a) === isoKey(b); }
   function fmtShort(d) { return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); }
 
   const today = new Date();
   let viewMonday = startOfWeekMonday(today);
+  let viewMonthDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  let viewMode = 'week';
 
   // ---------- color ----------
   function colorForRatio(r) {
@@ -88,6 +91,17 @@
     nextWeek: document.getElementById('nextWeek'),
     thisWeekBtn: document.getElementById('thisWeekBtn'),
     confettiLayer: document.getElementById('confettiLayer'),
+    viewToggle: document.getElementById('viewToggle'),
+    weekNav: document.getElementById('weekNav'),
+    monthNav: document.getElementById('monthNav'),
+    prevMonth: document.getElementById('prevMonth'),
+    nextMonth: document.getElementById('nextMonth'),
+    thisMonthBtn: document.getElementById('thisMonthBtn'),
+    monthLabel: document.getElementById('monthLabel'),
+    calendarSection: document.getElementById('calendarSection'),
+    calendarWeekdays: document.getElementById('calendarWeekdays'),
+    calendarGrid: document.getElementById('calendarGrid'),
+    historySection: document.getElementById('historySection'),
   };
 
   els.ring.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
@@ -224,6 +238,70 @@
     });
 
     renderHistory();
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    const year = viewMonthDate.getFullYear();
+    const month = viewMonthDate.getMonth();
+    els.monthLabel.textContent = viewMonthDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    els.thisMonthBtn.style.display = (year === today.getFullYear() && month === today.getMonth()) ? 'none' : 'inline';
+
+    els.calendarWeekdays.innerHTML = '';
+    for (let wd = 1; wd <= 7; wd++) {
+      const span = document.createElement('span');
+      span.textContent = DAY_NAMES[wd];
+      els.calendarWeekdays.appendChild(span);
+    }
+
+    const firstOfMonth = new Date(year, month, 1);
+    const lastOfMonth = new Date(year, month + 1, 0);
+    const gridStart = startOfWeekMonday(firstOfMonth);
+    const gridEnd = addDays(startOfWeekMonday(lastOfMonth), 6);
+    const target = perDayTarget();
+
+    els.calendarGrid.innerHTML = '';
+    let cursor = gridStart;
+    while (cursor <= gridEnd) {
+      const weekMonday = cursor;
+      for (let i = 0; i < 7; i++) {
+        const d = addDays(cursor, i);
+        const wd = isoWeekday(d);
+        const isOutside = d.getMonth() !== month;
+        const isActive = state.activeDays.includes(wd);
+        const entries = weekEntries(startOfWeekMonday(d));
+        const count = Number(entries[wd]) || 0;
+        const ratio = target > 0 ? count / target : 0;
+        const color = colorForRatio(ratio);
+
+        const cell = document.createElement('div');
+        cell.className = 'cal-cell';
+        if (isOutside) cell.classList.add('outside');
+        if (sameDate(d, today)) cell.classList.add('today');
+        if (isActive) {
+          cell.classList.add('tracked');
+          if (ratio >= 1) cell.classList.add('hit');
+          cell.style.setProperty('--cell-color', color);
+        }
+        cell.innerHTML = isActive
+          ? `<span class="cal-date">${d.getDate()}</span><span class="cal-count">${count}</span>`
+          : `<span class="cal-date">${d.getDate()}</span><span class="cal-dot"></span>`;
+        cell.addEventListener('click', () => {
+          viewMonday = startOfWeekMonday(d);
+          setView('week');
+        });
+        els.calendarGrid.appendChild(cell);
+      }
+
+      const wTotal = weekTotal(weekMonday);
+      const wRatio = state.goal > 0 ? wTotal / state.goal : 0;
+      const totalRow = document.createElement('div');
+      totalRow.className = 'cal-week-total';
+      totalRow.innerHTML = `<span class="dot" style="background:${colorForRatio(wRatio)}"></span>${wTotal}/${state.goal}`;
+      els.calendarGrid.appendChild(totalRow);
+
+      cursor = addDays(cursor, 7);
+    }
   }
 
   function renderHistory() {
@@ -325,6 +403,38 @@
   els.prevWeek.addEventListener('click', () => { viewMonday = addDays(viewMonday, -7); render(); });
   els.nextWeek.addEventListener('click', () => { viewMonday = addDays(viewMonday, 7); render(); });
   els.thisWeekBtn.addEventListener('click', () => { viewMonday = startOfWeekMonday(today); render(); });
+
+  // ---------- month nav ----------
+  els.prevMonth.addEventListener('click', () => {
+    viewMonthDate = new Date(viewMonthDate.getFullYear(), viewMonthDate.getMonth() - 1, 1);
+    render();
+  });
+  els.nextMonth.addEventListener('click', () => {
+    viewMonthDate = new Date(viewMonthDate.getFullYear(), viewMonthDate.getMonth() + 1, 1);
+    render();
+  });
+  els.thisMonthBtn.addEventListener('click', () => {
+    viewMonthDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    render();
+  });
+
+  // ---------- view switching ----------
+  function setView(mode) {
+    viewMode = mode;
+    els.viewToggle.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.view === mode));
+    const isWeek = mode === 'week';
+    els.weekNav.hidden = !isWeek;
+    els.monthNav.hidden = isWeek;
+    els.hero.hidden = !isWeek;
+    els.days.hidden = !isWeek;
+    els.historySection.hidden = !isWeek;
+    els.calendarSection.hidden = isWeek;
+    render();
+  }
+  els.viewToggle.addEventListener('click', e => {
+    const btn = e.target.closest('.view-toggle-btn');
+    if (btn) setView(btn.dataset.view);
+  });
 
   render();
 })();

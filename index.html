@@ -21,13 +21,27 @@
     <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙️</button>
   </header>
 
-  <section class="week-nav">
+  <div class="view-toggle" id="viewToggle">
+    <button class="view-toggle-btn active" data-view="week">Week</button>
+    <button class="view-toggle-btn" data-view="month">Month</button>
+  </div>
+
+  <section class="week-nav" id="weekNav">
     <button id="prevWeek" class="nav-btn" aria-label="Previous week">‹</button>
     <div class="week-label">
       <span id="weekRange">—</span>
       <button id="thisWeekBtn" class="link-btn">This week</button>
     </div>
     <button id="nextWeek" class="nav-btn" aria-label="Next week">›</button>
+  </section>
+
+  <section class="week-nav" id="monthNav" hidden>
+    <button id="prevMonth" class="nav-btn" aria-label="Previous month">‹</button>
+    <div class="week-label">
+      <span id="monthLabel">—</span>
+      <button id="thisMonthBtn" class="link-btn">This month</button>
+    </div>
+    <button id="nextMonth" class="nav-btn" aria-label="Next month">›</button>
   </section>
 
   <section class="hero" id="hero">
@@ -63,7 +77,12 @@
 
   <section class="days" id="days"></section>
 
-  <section class="history">
+  <section class="calendar" id="calendarSection" hidden>
+    <div class="calendar-weekdays" id="calendarWeekdays"></div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </section>
+
+  <section class="history" id="historySection">
     <h2>Last 8 weeks</h2>
     <div class="history-chart" id="historyChart"></div>
   </section>
