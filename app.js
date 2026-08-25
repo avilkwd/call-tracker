@@ -2,7 +2,7 @@
   const STORAGE_KEY = 'callTracker.v1';
   const DAY_NAMES = { 1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thu', 5: 'Fri', 6: 'Sat', 7: 'Sun' };
   const DAY_NAMES_FULL = { 1: 'Monday', 2: 'Tuesday', 3: 'Wednesday', 4: 'Thursday', 5: 'Friday', 6: 'Saturday', 7: 'Sunday' };
-  const RING_CIRCUMFERENCE = 2 * Math.PI * 88;
+  const RING_CIRCUMFERENCE = 2 * (176 + 176);
 
   // ---------- state ----------
   function loadState() {
