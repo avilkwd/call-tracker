@@ -44,38 +44,40 @@
     <button id="nextMonth" class="nav-btn" aria-label="Next month">›</button>
   </section>
 
-  <section class="hero" id="hero">
-    <div class="ring-wrap">
-      <svg viewBox="0 0 200 200" class="ring">
-        <circle class="ring-track" cx="100" cy="100" r="88"></circle>
-        <circle id="ringProgress" class="ring-progress" cx="100" cy="100" r="88"></circle>
-      </svg>
-      <div class="ring-center">
-        <div class="ring-total"><span id="weekTotal">0</span><span class="ring-goal">/<span id="weekGoalLabel">100</span></span></div>
-        <div class="ring-pct" id="weekPct">0%</div>
-      </div>
-    </div>
-
-    <div class="hero-side">
-      <p class="momentum-msg" id="momentumMsg">Let's get moving.</p>
-      <div class="stat-row">
-        <div class="stat">
-          <div class="stat-num" id="remainingNum">100</div>
-          <div class="stat-label">calls to go</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" id="paceNum">25</div>
-          <div class="stat-label">needed/day left</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num streak" id="streakNum">0🔥</div>
-          <div class="stat-label">week streak</div>
+  <div class="week-content" id="weekContent">
+    <section class="hero" id="hero">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 200 200" class="ring">
+          <circle class="ring-track" cx="100" cy="100" r="88"></circle>
+          <circle id="ringProgress" class="ring-progress" cx="100" cy="100" r="88"></circle>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-total"><span id="weekTotal">0</span><span class="ring-goal">/<span id="weekGoalLabel">100</span></span></div>
+          <div class="ring-pct" id="weekPct">0%</div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="days" id="days"></section>
+      <div class="hero-side">
+        <p class="momentum-msg" id="momentumMsg">Let's get moving.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num" id="remainingNum">100</div>
+            <div class="stat-label">calls to go</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" id="paceNum">25</div>
+            <div class="stat-label">needed/day left</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num streak" id="streakNum">0🔥</div>
+            <div class="stat-label">week streak</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="days" id="days"></section>
+  </div>
 
   <section class="calendar" id="calendarSection" hidden>
     <div class="calendar-weekdays" id="calendarWeekdays"></div>

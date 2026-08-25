@@ -102,6 +102,7 @@
     calendarWeekdays: document.getElementById('calendarWeekdays'),
     calendarGrid: document.getElementById('calendarGrid'),
     historySection: document.getElementById('historySection'),
+    weekContent: document.getElementById('weekContent'),
   };
 
   els.ring.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
@@ -425,9 +426,7 @@
     const isWeek = mode === 'week';
     els.weekNav.hidden = !isWeek;
     els.monthNav.hidden = isWeek;
-    els.hero.hidden = !isWeek;
-    els.days.hidden = !isWeek;
-    els.historySection.hidden = !isWeek;
+    els.weekContent.hidden = !isWeek;
     els.calendarSection.hidden = isWeek;
     render();
   }
