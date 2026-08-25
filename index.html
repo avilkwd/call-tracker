@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Cold Call Tracker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📞</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">📞</span>
+      <div>
+        <h1>Cold Call Tracker</h1>
+        <p class="tagline">Keep the momentum going.</p>
+      </div>
+    </div>
+    <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙️</button>
+  </header>
+
+  <section class="week-nav">
+    <button id="prevWeek" class="nav-btn" aria-label="Previous week">‹</button>
+    <div class="week-label">
+      <span id="weekRange">—</span>
+      <button id="thisWeekBtn" class="link-btn">This week</button>
+    </div>
+    <button id="nextWeek" class="nav-btn" aria-label="Next week">›</button>
+  </section>
+
+  <section class="hero" id="hero">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 200 200" class="ring">
+        <circle class="ring-track" cx="100" cy="100" r="88"></circle>
+        <circle id="ringProgress" class="ring-progress" cx="100" cy="100" r="88"></circle>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-total"><span id="weekTotal">0</span><span class="ring-goal">/<span id="weekGoalLabel">100</span></span></div>
+        <div class="ring-pct" id="weekPct">0%</div>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <p class="momentum-msg" id="momentumMsg">Let's get moving.</p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num" id="remainingNum">100</div>
+          <div class="stat-label">calls to go</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="paceNum">25</div>
+          <div class="stat-label">needed/day left</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num streak" id="streakNum">0🔥</div>
+          <div class="stat-label">week streak</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="days" id="days"></section>
+
+  <section class="history">
+    <h2>Last 8 weeks</h2>
+    <div class="history-chart" id="historyChart"></div>
+  </section>
+
+</div>
+
+<div class="modal-backdrop" id="settingsBackdrop">
+  <div class="modal">
+    <h2>Settings</h2>
+    <label class="field">
+      <span>Weekly goal (calls)</span>
+      <input type="number" id="goalInput" min="1" step="1">
+    </label>
+    <fieldset class="field">
+      <legend>Active days</legend>
+      <div class="day-toggles" id="dayToggles"></div>
+    </fieldset>
+    <div class="modal-actions">
+      <button id="resetDataBtn" class="danger-btn">Reset all data</button>
+      <button id="closeSettings" class="primary-btn">Done</button>
+    </div>
+  </div>
+</div>
+
+<div id="confettiLayer" class="confetti-layer"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
