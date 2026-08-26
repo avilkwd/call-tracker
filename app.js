@@ -66,6 +66,11 @@
     return state.activeDays.reduce((sum, wd) => sum + (Number(entries[wd]) || 0), 0);
   }
   function perDayTarget() { return state.goal / state.activeDays.length; }
+  function lifetimeTotal() {
+    return Object.values(state.weeks).reduce((sum, entries) => {
+      return sum + Object.values(entries).reduce((s, v) => s + (Number(v) || 0), 0);
+    }, 0);
+  }
 
   // ---------- rendering ----------
   const els = {
@@ -103,6 +108,7 @@
     calendarGrid: document.getElementById('calendarGrid'),
     historySection: document.getElementById('historySection'),
     weekContent: document.getElementById('weekContent'),
+    lifetimeNum: document.getElementById('lifetimeNum'),
   };
 
   els.ring.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
@@ -141,6 +147,8 @@
   }
 
   function render() {
+    els.lifetimeNum.textContent = lifetimeTotal().toLocaleString();
+
     const entries = weekEntries(viewMonday);
     const total = weekTotal(viewMonday);
     const goal = state.goal;
