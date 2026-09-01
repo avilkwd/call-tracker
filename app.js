@@ -351,12 +351,24 @@
     const layer = els.celebrationLayer;
     const rocket = document.createElement('div');
     rocket.className = 'rocket';
+    const dir = Math.random() < 0.5 ? -1 : 1;
+    const driftVw = dir * (48 + Math.random() * 28);
+    const tiltDeg = dir * (18 + Math.random() * 14);
+    rocket.style.setProperty('--driftXEnd', `${driftVw.toFixed(0)}vw`);
+    rocket.style.setProperty('--tiltEnd', `${tiltDeg.toFixed(0)}deg`);
     rocket.innerHTML = `
-      <div class="rocket-fin left"></div>
-      <div class="rocket-fin right"></div>
-      <div class="rocket-body"></div>
+      <div class="rocket-fin left wood-piece"></div>
+      <div class="rocket-fin right wood-piece"></div>
+      <div class="rocket-body wood-piece">
+        <div class="plank-seam s1"></div>
+        <div class="plank-seam s2"></div>
+        <div class="rivet r1"></div>
+        <div class="rivet r2"></div>
+        <div class="rivet r3"></div>
+        <div class="rivet r4"></div>
+      </div>
       <div class="rocket-window"></div>
-      <div class="rocket-nose"></div>
+      <div class="rocket-nose wood-piece"></div>
       <div class="rocket-flame"></div>
     `;
     layer.appendChild(rocket);
