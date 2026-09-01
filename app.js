@@ -95,7 +95,7 @@
     prevWeek: document.getElementById('prevWeek'),
     nextWeek: document.getElementById('nextWeek'),
     thisWeekBtn: document.getElementById('thisWeekBtn'),
-    confettiLayer: document.getElementById('confettiLayer'),
+    celebrationLayer: document.getElementById('celebrationLayer'),
     viewToggle: document.getElementById('viewToggle'),
     weekNav: document.getElementById('weekNav'),
     monthNav: document.getElementById('monthNav'),
@@ -343,23 +343,41 @@
     if (total >= state.goal && state.goal > 0 && !state.celebratedWeeks.includes(key)) {
       state.celebratedWeeks.push(key);
       saveState();
-      fireConfetti();
+      launchRocket();
     }
   }
 
-  function fireConfetti() {
-    const colors = ['#4ade80', '#facc15', '#38bdf8', '#f472b6', '#fb923c'];
-    const layer = els.confettiLayer;
-    for (let i = 0; i < 60; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'confetti-piece';
-      piece.style.left = `${Math.random() * 100}vw`;
-      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-      piece.style.animationDuration = `${1.8 + Math.random() * 1.4}s`;
-      piece.style.animationDelay = `${Math.random() * 0.4}s`;
-      layer.appendChild(piece);
-      setTimeout(() => piece.remove(), 4000);
-    }
+  function launchRocket() {
+    const layer = els.celebrationLayer;
+    const rocket = document.createElement('div');
+    rocket.className = 'rocket';
+    rocket.innerHTML = `
+      <div class="rocket-fin left"></div>
+      <div class="rocket-fin right"></div>
+      <div class="rocket-body"></div>
+      <div class="rocket-window"></div>
+      <div class="rocket-nose"></div>
+      <div class="rocket-flame"></div>
+    `;
+    layer.appendChild(rocket);
+
+    // Smoke puffs billow from the launch pad during the 1.6s liftoff phase (starts at 1.4s).
+    const smokeStart = setTimeout(() => {
+      const smokeInterval = setInterval(() => {
+        const puff = document.createElement('div');
+        puff.className = 'smoke-puff';
+        puff.style.setProperty('--driftX', `${(Math.random() - 0.5) * 90}px`);
+        puff.style.marginLeft = `${-11 + (Math.random() - 0.5) * 50}px`;
+        layer.appendChild(puff);
+        setTimeout(() => puff.remove(), 950);
+      }, 130);
+      setTimeout(() => clearInterval(smokeInterval), 1600);
+    }, 1400);
+
+    setTimeout(() => {
+      clearTimeout(smokeStart);
+      rocket.remove();
+    }, 3200);
   }
 
   // ---------- settings ----------
@@ -390,6 +408,12 @@
   els.settingsBtn.addEventListener('click', () => {
     renderSettings();
     els.settingsBackdrop.classList.add('open');
+  });
+  els.weekGoalLabel.addEventListener('click', () => {
+    renderSettings();
+    els.settingsBackdrop.classList.add('open');
+    els.goalInput.focus();
+    els.goalInput.select();
   });
   els.closeSettings.addEventListener('click', () => els.settingsBackdrop.classList.remove('open'));
   els.settingsBackdrop.addEventListener('click', e => { if (e.target === els.settingsBackdrop) els.settingsBackdrop.classList.remove('open'); });
