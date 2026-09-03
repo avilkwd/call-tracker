@@ -3,27 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Cold Call Tracker</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📞</text></svg>">
-<link rel="stylesheet" href="style.css?v=20260828">
+<title>Callcraft — Call Tracker</title>
+<meta name="theme-color" content="#f5f0e8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23473126%22/><path d=%22M30 21l13 19-9 8c7 13 13 19 26 26l8-9 19 13-6 16C46 94 6 54 14 27z%22 fill=%22%23f7dfb8%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20260903">
 </head>
 <body>
 <div class="app">
 
   <header class="topbar">
     <div class="brand">
-      <span class="brand-icon">📞</span>
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.4 3.5 9.7 7c.3.5.2 1.1-.2 1.5l-1.6 1.3a14.7 14.7 0 0 0 6.3 6.3l1.3-1.6c.4-.4 1-.5 1.5-.2l3.5 2.3c.5.3.7.9.5 1.4l-.8 2.4c-.2.5-.7.9-1.3.9C9.9 21.3 2.7 14.1 2.7 5c0-.6.4-1.1.9-1.3L6 3c.5-.2 1.1 0 1.4.5Z"/></svg></span>
       <div>
-        <h1>Cold Call Tracker</h1>
-        <p class="tagline">Keep the momentum going.</p>
+        <h1>Callcraft</h1>
+        <p class="tagline">Build momentum, one call at a time.</p>
       </div>
     </div>
     <div class="lifetime-box">
       <div class="lifetime-num" id="lifetimeNum">0</div>
       <div class="lifetime-label">Lifetime Calls</div>
     </div>
-    <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙️</button>
+    <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/><path d="M19.4 13.5a7.8 7.8 0 0 0 0-3l2-1.6-2-3.4-2.5 1a8.8 8.8 0 0 0-2.6-1.5L14 2.3h-4L9.7 5a8.8 8.8 0 0 0-2.6 1.5l-2.5-1-2 3.4 2 1.6a7.8 7.8 0 0 0 0 3l-2 1.6 2 3.4 2.5-1A8.8 8.8 0 0 0 9.7 19l.3 2.7h4l.3-2.7a8.8 8.8 0 0 0 2.6-1.5l2.5 1 2-3.4-2-1.6Z"/></svg></button>
   </header>
+
+  <section class="workshop-intro" aria-labelledby="dashboardTitle">
+    <div>
+      <span class="eyebrow">Your calling workshop</span>
+      <h2 id="dashboardTitle">Make the week<br><em>count.</em></h2>
+    </div>
+    <p>Set the pace. Put in the work.<br>Watch your momentum take shape.</p>
+  </section>
 
   <div class="cloud-lift" aria-hidden="true"></div>
 
@@ -52,6 +64,7 @@
 
   <div class="week-content" id="weekContent">
     <section class="hero" id="hero">
+      <span class="panel-label">Weekly progress</span>
       <div class="ring-wrap">
         <svg viewBox="0 0 200 200" class="ring">
           <rect class="ring-track" x="12" y="12" width="176" height="176"></rect>
@@ -82,7 +95,10 @@
       </div>
     </section>
 
-    <section class="days" id="days"></section>
+    <div class="daily-board">
+      <div class="section-heading"><span>Daily tally</span><small>Tap + to log a call</small></div>
+      <section class="days" id="days"></section>
+    </div>
   </div>
 
   <section class="calendar" id="calendarSection" hidden>
@@ -91,7 +107,7 @@
   </section>
 
   <section class="history" id="historySection">
-    <h2>Last 8 weeks</h2>
+    <div class="history-heading"><div><span class="eyebrow">Craft your consistency</span><h2>Eight-week grain</h2></div><small>Every bar tells the story.</small></div>
     <div class="history-chart" id="historyChart"></div>
   </section>
 
@@ -117,6 +133,6 @@
 
 <div id="celebrationLayer" class="celebration-layer"></div>
 
-<script src="app.js?v=20260828"></script>
+<script src="app.js?v=20260903"></script>
 </body>
 </html>
