@@ -46,13 +46,12 @@
 
   // ---------- color ----------
   function colorForRatio(r) {
-    if (r >= 1) {
-      const bonus = Math.min((r - 1) / 0.5, 1);
-      const hue = 140 - bonus * 95; // green -> gold
-      return `hsl(${hue.toFixed(0)} 85% 55%)`;
-    }
-    const hue = Math.max(0, r) * 140; // red -> green
-    return `hsl(${hue.toFixed(0)} 80% 52%)`;
+    // A restrained, material palette: brick through ochre to moss.
+    if (r >= 1.25) return '#9a7442';
+    if (r >= 1) return '#617561';
+    if (r >= 0.72) return '#788060';
+    if (r >= 0.42) return '#a17b48';
+    return '#985c4e';
   }
 
   // ---------- week data access ----------
@@ -114,13 +113,12 @@
   els.ring.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
 
   function momentumMessage(r) {
-    if (r <= 0) return "Let's get moving — first call sets the tone.";
-    if (r < 0.25) return 'Building momentum…';
-    if (r < 0.5) return 'Halfway to unstoppable.';
-    if (r < 0.75) return "You're heating up 🔥";
-    if (r < 1) return "So close — finish strong!";
-    if (r < 1.25) return 'Goal crushed! Nice work. 🎉';
-    return 'Way over goal — incredible week! 🚀';
+    if (r <= 0) return 'No calls recorded';
+    if (r < 0.5) return 'In progress';
+    if (r < 0.75) return 'Past halfway';
+    if (r < 1) return 'Approaching target';
+    if (r < 1.25) return 'Target reached';
+    return 'Above target';
   }
 
   function computeStreak() {
@@ -195,9 +193,9 @@
       remainingActiveDaysCount = 0;
     }
     const pace = remainingActiveDaysCount > 0 ? Math.ceil(remaining / remainingActiveDaysCount) : (remaining > 0 ? remaining : 0);
-    els.paceNum.textContent = remaining === 0 ? '🎉' : pace;
+    els.paceNum.textContent = remaining === 0 ? '0' : pace;
 
-    els.streakNum.textContent = `${computeStreak()}🔥`;
+    els.streakNum.textContent = computeStreak();
 
     // day cards
     els.days.innerHTML = '';
