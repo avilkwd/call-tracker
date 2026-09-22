@@ -28,6 +28,16 @@
     <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/><path d="M19.4 13.5a7.8 7.8 0 0 0 0-3l2-1.6-2-3.4-2.5 1a8.8 8.8 0 0 0-2.6-1.5L14 2.3h-4L9.7 5a8.8 8.8 0 0 0-2.6 1.5l-2.5-1-2 3.4 2 1.6a7.8 7.8 0 0 0 0 3l-2 1.6 2 3.4 2.5-1A8.8 8.8 0 0 0 9.7 19l.3 2.7h4l.3-2.7a8.8 8.8 0 0 0 2.6-1.5l2.5 1 2-3.4-2-1.6Z"/></svg></button>
   </header>
 
+  <section class="workshop-intro" aria-labelledby="dashboardTitle">
+    <div>
+      <span class="eyebrow">Your calling workshop</span>
+      <h2 id="dashboardTitle">Make the week<br><em>count.</em></h2>
+    </div>
+    <p>Set the pace. Put in the work.<br>Watch your momentum take shape.</p>
+  </section>
+
+  <div class="cloud-lift" aria-hidden="true"></div>
+
   <div class="view-toggle" id="viewToggle">
     <button class="view-toggle-btn active" data-view="week">Week</button>
     <button class="view-toggle-btn" data-view="month">Month</button>
@@ -53,7 +63,7 @@
 
   <div class="week-content" id="weekContent">
     <section class="hero" id="hero">
-      <span class="panel-label">Weekly calls</span>
+      <span class="panel-label">Weekly progress</span>
       <div class="ring-wrap">
         <svg viewBox="0 0 200 200" class="ring">
           <rect class="ring-track" x="12" y="12" width="176" height="176"></rect>
@@ -85,7 +95,7 @@
     </section>
 
     <div class="daily-board">
-      <div class="section-heading">Daily calls</div>
+      <div class="section-heading"><span>Daily tally</span><small>Tap + to log a call</small></div>
       <section class="days" id="days"></section>
     </div>
   </div>
@@ -96,7 +106,7 @@
   </section>
 
   <section class="history" id="historySection">
-    <div class="history-heading"><h2>Last 8 weeks</h2></div>
+    <div class="history-heading"><div><span class="eyebrow">Craft your consistency</span><h2>Eight-week grain</h2></div><small>Every bar tells the story.</small></div>
     <div class="history-chart" id="historyChart"></div>
   </section>
 
@@ -122,6 +132,6 @@
 
 <div id="celebrationLayer" class="celebration-layer"></div>
 
-<script src="app.js?v=20260922"></script>
+<script src="app.js?v=20260903"></script>
 </body>
 </html>
