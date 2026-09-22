@@ -452,6 +452,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--moss); outl
   font-size: 11px;
   font-weight: 700;
 }
+fieldset.field { min-width: 0; padding: 0; border: 0; }
 .field input[type=number] {
   display: block;
   width: 100%;
